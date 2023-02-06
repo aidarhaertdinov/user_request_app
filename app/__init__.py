@@ -3,13 +3,14 @@ from config import config
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from flask_wtf.csrf import CSRFProtect
-
+from flask_moment import Moment
 
 
 
 login_manager = LoginManager()
 bootstrap = Bootstrap()
 csrf = CSRFProtect()
+moment = Moment()
 
 
 
@@ -21,6 +22,7 @@ def create_app(config_name="development"):
     login_manager.init_app(app)
     bootstrap.init_app(app)
     csrf.init_app(app)
+    moment.init_app(app)
 
 
     from .main import main

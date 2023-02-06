@@ -4,7 +4,7 @@ from .form import LoginForm, RegistrationForm
 # from ..model import User, db
 from .. import login_manager
 from flask_login import login_user, logout_user, login_required
-
+import requests
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -15,12 +15,13 @@ def load_user(user_id):
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(user_name=form.email.data.lower()).first()
-        if user is not None and user.check_password(form.password.data):
-            login_user(user, remember=True)
-            return redirect(url_for("auth.success"))
-        else:
-            flash("Вы ввели неверный адрес электронной почты или пароль", category='error')
+        user = {'email': form.email.data, 'password': form.password.data}
+        res_user = requests.post('http://127.0.0.1:5000/rest/v1/login', json=user)
+        # if res_user is not None and res_user.check_password(form.password.data):
+            # login_user(user, remember=True)
+        return redirect(url_for("auth.success"))
+        # else:
+        #     flash("Вы ввели неверный адрес электронной почты или пароль", category='error')
     return render_template("auth/authorization.html", form=form, title="login")
 
 
@@ -28,10 +29,10 @@ def login():
 def registration():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(form.email.data, form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        login_user(user, remember=True)
+        user = {'email': form.email.data, 'password': form.password.data}
+        # user = User(form.email.data, form.password.data)
+        res_user = requests.post('http://127.0.0.1:5000/rest/v1/registration', json=user)
+        # login_user(res_user, remember=True)
         return redirect(url_for("auth.success"))
     elif request.method == 'POST':
         flash("Неверная пара логин/пароль", category='error')
@@ -39,7 +40,7 @@ def registration():
 
 
 @auth.route("/logout")
-@login_required
+# @login_required
 def logout():
     logout_user()
     flash('Вы вышли из системы', category='success')
@@ -47,7 +48,7 @@ def logout():
 
 
 @auth.route("/success")
-@login_required
+# @login_required
 def success():
     return render_template("auth/log_in.html", title="log in")
 
