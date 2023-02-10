@@ -7,45 +7,48 @@ import os
 # from app.auth.decorators import admin_required, user_required
 from flask_login import login_required
 from ..auth.view import requests
+from app.repository.user_repository import get_all_users, get_user, put_user
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)
+# @login_manager.user_loader
+# def load_user(id):
+#     return get_user(id)
 
 
 @main.route('/')
 def index():
     return render_template("main/base.html")
 
-
+# TODO использовать метод из репозит слоя
 @main.route('/user_browser', methods=['GET'])
 # @login_required
 # @admin_required
 def user_browser():
-    users = requests.get('http://127.0.0.1:5000/rest/v1/users').json()
+    users = get_all_users()
     return render_template("main/user_browser.html", users=users, title="Пользователи")
 
 
 @main.route('/user_editor/<id>', methods=['GET', 'POST', 'PUT'])
 # @login_required
 def user_editor(id):
-    user = requests.get(f"http://127.0.0.1:5000/rest/v1/users/{id}").json()
+    user = get_user(id)
     if user:
-        form = UserForm(id= user['id'], username=user['username'], email=user['email'], permission=user['permission'])
+        form = UserForm(id=user['id'], username=user['username'], email=user['email'], permission=user['permission'])
+        # form = UserForm(User.to_json())
         if form.validate_on_submit():
             update_user = {'id': form.id.data,
                            'username': form.username.data,
                            'email': form.email.data,
                            'permission': form.permission.data}
-            requests.put(f"http://127.0.0.1:5000/rest/v1/users/{id}", json=update_user)
+            put_user(id, update_user)
             return redirect(url_for("main.user_browser"))
         return render_template("main/user_editor.html", form=form)
 
-
-@main.route('/delete_user/<id>', methods=['GET', 'POST'])
+# TODO при удалении User выходит ошибка
+#  RecursionError: maximum recursion depth exceeded while calling a Python object
+@main.route('/delete_user/<id>', methods=['GET', 'DELETE'])
 # @login_required
 def delete_user(id):
-    user = User.query.filter_by(id=id).first()
-    db.session.delete(user)
-    db.session.commit()
-    return redirect(url_for("main.user_browser"))
+    user = get_user(id)
+    if user:
+        delete_user(id)
+        return redirect(url_for("main.user_browser"))

@@ -6,7 +6,7 @@ from ..model import Permissions
 
 
 class UserForm(FlaskForm):
-    id = IntegerField("ID", validators=[DataRequired()])
+    id = IntegerField("ID", validators=[DataRequired()], render_kw={'readonly': True})
     username = StringField("Имя пользователя: ", validators=[DataRequired()])
     email = StringField("Эл.почта: ", validators=[DataRequired()])
     permission = SelectField("Разрешение: ", choices=[e.value for e in Permissions])

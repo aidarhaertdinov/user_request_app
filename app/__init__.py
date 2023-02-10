@@ -31,4 +31,7 @@ def create_app(config_name="development"):
     from .auth import auth
     app.register_blueprint(auth)
 
+    from app.repository.user_repository import calculate_base_url
+    calculate_base_url()
+
     return app

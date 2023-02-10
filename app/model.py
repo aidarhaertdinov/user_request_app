@@ -8,12 +8,12 @@ class Permissions(Enum):
     ADMIN = "ADMIN"
     USER = "USER"
 
-class User():
+class User(UserMixin):
 
-    def __init__(self, username, email, permission=Permissions.USER):
+    def __init__(self, id, username, email, permission):
+        self.id = id
         self.username = username
         self.email = email
-        self.password = password
         self.permission = permission
 
     def can(self, perm):
@@ -27,8 +27,7 @@ class User():
 
     @staticmethod
     def from_json(_dict: dict):
-        return User(email=_dict.get('email'),
-                    username=_dict.get('username'),
-                    password=_dict.get('password'),
+        return User(id=_dict.get('id'), username=_dict.get('username'),
+                    email=_dict.get('email'),
                     permission=Permissions.__getitem__(_dict.get('permission')))
 
