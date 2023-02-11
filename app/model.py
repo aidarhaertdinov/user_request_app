@@ -29,5 +29,7 @@ class User(UserMixin):
     def from_json(_dict: dict):
         return User(id=_dict.get('id'), username=_dict.get('username'),
                     email=_dict.get('email'),
-                    permission=Permissions.__getitem__(_dict.get('permission')))
+                    permission=_dict.get('permission'))
+
+
 
