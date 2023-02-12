@@ -1,4 +1,3 @@
-from typing import List
 
 from ..model import User
 from config import Config
@@ -27,30 +26,24 @@ def calculate_base_url():
 def get_all_users() -> list[User]:
     list_users = requests.get(f"{BASE_URL}{BASE_ENDPOINT}/users").json()
     users = [User.from_json(user) for user in list_users]
-
     return users
 
 
 def get_user(id:int) -> User:
-
     return User.from_json(requests.get(f"{BASE_URL}{BASE_ENDPOINT}/users/{id}").json())
 
 
 def put_user(id:int, update_user) -> User:
-
     return User.from_json(requests.put(f"{BASE_URL}{BASE_ENDPOINT}/users/{id}", json=update_user).json())
 
 
 def delete_user(id:int) -> User:
-
-    return requests.delete(f"{BASE_URL}{BASE_ENDPOINT}/users/{id}")
-
-
-def login_user(user) -> User:
-
-    return requests.post(f"{BASE_URL}{BASE_ENDPOINT}/login", json=user).json()
+    return User.from_json(requests.delete(f"{BASE_URL}{BASE_ENDPOINT}/users/{id}").json())
 
 
-def registration_user(user) -> User:
+def user_login(user) -> User:
+    return User.from_json(requests.post(f"{BASE_URL}{BASE_ENDPOINT}/login", json=user).json())
 
-    return requests.post(f"{BASE_URL}{BASE_ENDPOINT}/registration", json=user)
+
+def user_registration(user) -> User:
+    return User.from_json(requests.post(f"{BASE_URL}{BASE_ENDPOINT}/registration", json=user).json())

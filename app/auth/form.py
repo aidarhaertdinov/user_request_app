@@ -8,9 +8,19 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password: ", validators=[DataRequired(), Length(1, 30)])
     submit = SubmitField("Log In")
 
+    @staticmethod
+    def form_data(form):
+        return {'email': form.email.data,
+                'password': form.password.data}
+
 
 class RegistrationForm(FlaskForm):
     email = EmailField("Email: ", validators=[DataRequired(), Email("Email адрес введен не верно")])
     password = PasswordField("Password: ", validators=[DataRequired(), Length(1, 30), EqualTo('check_password')])
     check_password = PasswordField("Password: ", validators=[DataRequired(), Length(1, 30)])
     submit = SubmitField("Log In")
+
+    @staticmethod
+    def form_data(form):
+        return {'email': form.email.data,
+                'password': form.password.data}
