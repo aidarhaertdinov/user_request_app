@@ -12,8 +12,7 @@ bootstrap = Bootstrap()
 csrf = CSRFProtect()
 moment = Moment()
 
-
-
+user_repository = None
 
 
 def create_app(config_name="development"):
@@ -31,7 +30,11 @@ def create_app(config_name="development"):
     from .auth import auth
     app.register_blueprint(auth)
 
-    from app.repository.user_repository import calculate_base_url
-    calculate_base_url(app)
+    from app.repository.user_repository import UserRepository
+    global user_repository
+    user_repository = UserRepository()
+
+    from app.repository.user_repository import UserRepository
+    UserRepository.calculate_base_url(app)
 
     return app

@@ -3,24 +3,32 @@ from wtforms import EmailField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, Length, EqualTo, Email
 
 
-class LoginForm(FlaskForm):
-    email = EmailField("Email: ", validators=[DataRequired(), Email("Email адрес введен не верно")])
-    password = PasswordField("Password: ", validators=[DataRequired(), Length(1, 30)])
-    submit = SubmitField("Log In")
+class BasicLoginRegistrationForm(FlaskForm):
 
-    @staticmethod
-    def form_data(form):
+    @classmethod
+    def form_data(cls, form):
         return {'email': form.email.data,
                 'password': form.password.data}
 
 
-class RegistrationForm(FlaskForm):
+class LoginForm(BasicLoginRegistrationForm):
+    email = EmailField("Email: ", validators=[DataRequired(), Email("Email адрес введен не верно")])
+    password = PasswordField("Password: ", validators=[DataRequired(), Length(1, 30)])
+    submit = SubmitField("Log In")
+
+    # @staticmethod
+    # def form_data(form):
+    #     return {'email': form.email.data,
+    #             'password': form.password.data}
+
+
+class RegistrationForm(BasicLoginRegistrationForm):
     email = EmailField("Email: ", validators=[DataRequired(), Email("Email адрес введен не верно")])
     password = PasswordField("Password: ", validators=[DataRequired(), Length(1, 30), EqualTo('check_password')])
     check_password = PasswordField("Password: ", validators=[DataRequired(), Length(1, 30)])
     submit = SubmitField("Log In")
 
-    @staticmethod
-    def form_data(form):
-        return {'email': form.email.data,
-                'password': form.password.data}
+    # @staticmethod
+    # def form_data(form):
+    #     return {'email': form.email.data,
+    #             'password': form.password.data}

@@ -1,7 +1,6 @@
 import os
 
 
-# TODO os.getenv
 class Config:
     PROTOCOL_REST_BACKEND = os.getenv('PROTOCOL_REST_BACKEND') or 'http://'
     URL_REST_BACKEND = os.getenv('URL_REST_BACKEND') or '127.0.0.1'

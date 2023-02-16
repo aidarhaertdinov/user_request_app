@@ -1,11 +1,9 @@
 from flask import flash, url_for, redirect, render_template, request
 from . import auth
 from .form import LoginForm, RegistrationForm
-from ..model import User
 from .. import login_manager
-from flask_login import login_user, logout_user, login_required
-import requests
-from app.repository.user_repository import user_login, user_registration, get_user
+from flask_login import logout_user
+from app.repository.user_repository import UserRepository
 
 
 @login_manager.user_loader
@@ -18,7 +16,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = LoginForm.form_data(form)
-        user_login(user)
+        UserRepository.user_login(user)
         return redirect(url_for("auth.success"))
         # else:
         #     flash("Вы ввели неверный адрес электронной почты или пароль", category='error')
@@ -30,7 +28,7 @@ def registration():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = RegistrationForm.form_data(form)
-        user_registration(user)
+        UserRepository.user_registration(user)
         return redirect(url_for("auth.success"))
     elif request.method == 'POST':
         flash("Неверная пара логин/пароль", category='error')
