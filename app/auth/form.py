@@ -16,11 +16,6 @@ class LoginForm(BasicLoginRegistrationForm):
     password = PasswordField("Password: ", validators=[DataRequired(), Length(1, 30)])
     submit = SubmitField("Log In")
 
-    # @staticmethod
-    # def form_data(form):
-    #     return {'email': form.email.data,
-    #             'password': form.password.data}
-
 
 class RegistrationForm(BasicLoginRegistrationForm):
     email = EmailField("Email: ", validators=[DataRequired(), Email("Email адрес введен не верно")])
@@ -28,7 +23,3 @@ class RegistrationForm(BasicLoginRegistrationForm):
     check_password = PasswordField("Password: ", validators=[DataRequired(), Length(1, 30)])
     submit = SubmitField("Log In")
 
-    # @staticmethod
-    # def form_data(form):
-    #     return {'email': form.email.data,
-    #             'password': form.password.data}
