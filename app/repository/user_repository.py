@@ -2,11 +2,9 @@ from ..model import User
 from flask import current_app
 import requests
 
-# TODO добавлен новый BASE ENDPOINT AUTH так как в backend rest_v1 и auth разделена на два Blueprint
 BASE_URL = None
 BASE_ENDPOINT = '/rest/v1'
 BASE_ENDPOINT_AUTH = '/auth'
-
 
 class UserRepository:
 
@@ -15,14 +13,14 @@ class UserRepository:
         BASE_URL = f"{app.config['PROTOCOL_REST_BACKEND']}{app.config['URL_REST_BACKEND']}:{app.config['PORT_REST_BACKEND']}"
 
 
-    def user_registration(user) -> User:
-        return User.from_json(requests.post(f"{BASE_URL}{BASE_ENDPOINT_AUTH}/registration", json=user).json())
+    def create_user(user) -> User:
+        return User.from_json(requests.post(f"{BASE_URL}{BASE_ENDPOINT}/create_user", json=user).json())
 
 
     def user_login(user) -> bool:
         if user:
             data = requests.post(f"{BASE_URL}{BASE_ENDPOINT_AUTH}/login", json=user).json()
-            current_app.config[ 'token'] = f"Bearer {data['token']}"
+            current_app.config['token'] = f"Bearer {data['token']}"
             return True
         else:
             return False

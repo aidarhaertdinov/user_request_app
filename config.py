@@ -8,6 +8,8 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY') or os.urandom(32)
     WTF_CSRF_SECRET_KEY = os.getenv('WTF_CSRF_SECRET_KEY') or os.urandom(32)
     SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS') or False
+    ADMIN_EMAIL = os.getenv('PROTOCOL_REST_BACKEND') or 'admin@mail.ru'
+    ADMIN_PASSWORD = os.getenv('PROTOCOL_REST_BACKEND') or '123'
 
 
 class DevelopmentConfig(Config):

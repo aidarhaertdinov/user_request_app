@@ -23,12 +23,8 @@ def create_app(config_name="development"):
     csrf.init_app(app)
     moment.init_app(app)
 
-
     from .main import main
     app.register_blueprint(main)
-
-    from .auth import auth
-    app.register_blueprint(auth)
 
     from app.repository.user_repository import UserRepository
     global user_repository

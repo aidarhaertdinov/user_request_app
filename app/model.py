@@ -25,7 +25,8 @@ class User(UserMixin):
 
     @staticmethod
     def from_json(_dict: dict):
-        return User(id=_dict.get('id'), username=_dict.get('username'),
+        return User(id=_dict.get('id'),
+                    username=_dict.get('username'),
                     email=_dict.get('email'),
                     permission=_dict.get('permission'))
 
