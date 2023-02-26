@@ -28,9 +28,6 @@ def create_app(config_name="development"):
 
     from app.repository.user_repository import UserRepository
     global user_repository
-    user_repository = UserRepository()
-
-    from app.repository.user_repository import UserRepository
-    UserRepository.calculate_base_url(app)
+    user_repository = UserRepository(app)
 
     return app

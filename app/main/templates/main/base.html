@@ -5,7 +5,6 @@
 {% block head %}
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<!--{{ moment.include_moment() }}-->
 
 {% block styles %}
 <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
@@ -24,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link text-danger" href='{{ url_for("main.user_browser") }}'>User browser <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-danger" href='{{ url_for("main.user_browser") }}'> User browser <span class="sr-only">(current)</span></a>
         </li>
       </ul>
     </div>

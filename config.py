@@ -10,6 +10,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS') or False
     ADMIN_EMAIL = os.getenv('PROTOCOL_REST_BACKEND') or 'admin@mail.ru'
     ADMIN_PASSWORD = os.getenv('PROTOCOL_REST_BACKEND') or '123'
+    TOKEN = os.getenv('TOKEN') or 'default token'
 
 
 class DevelopmentConfig(Config):
