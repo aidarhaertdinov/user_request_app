@@ -1,10 +1,7 @@
 from .. import login_manager
 from app.main import main
-from flask import render_template, request, redirect, url_for
-from app.repository.user_repository import UserRepository
+from flask import render_template, request, redirect, url_for, current_app
 from app.main.form import UserForm, NewUserForm
-from config import Config
-from app import user_repository
 
 
 @login_manager.user_loader
@@ -15,8 +12,8 @@ def load_user(id: int):
 @main.route('/')
 def index():
     from app import user_repository
-    user = {'email': Config.ADMIN_EMAIL,
-            'password': Config.ADMIN_PASSWORD
+    user = {'email': current_app.config.get('ADMIN_EMAIL'),
+            'password': current_app.config.get('ADMIN_PASSWORD')
             }
     user_repository.user_login(user)
     return render_template("main/base.html")

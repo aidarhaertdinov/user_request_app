@@ -1,10 +1,12 @@
 from flask_login import UserMixin
 from enum import Enum
 
+
 class Permissions(Enum):
     MODERATE = "MODERATE"
     ADMIN = "ADMIN"
     USER = "USER"
+
 
 class User(UserMixin):
 
@@ -29,6 +31,3 @@ class User(UserMixin):
                     username=_dict.get('username'),
                     email=_dict.get('email'),
                     permission=_dict.get('permission'))
-
-
-

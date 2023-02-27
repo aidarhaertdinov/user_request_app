@@ -1,7 +1,7 @@
 from ..model import User
 from flask import current_app
 import requests
-from ..security.decorators import decorator_function
+from ..security.decorators import auto_login
 from .base_repository import BaseRepository
 
 
@@ -28,7 +28,7 @@ class UserRepository(BaseRepository):
                               .json()
                               )
 
-    @decorator_function
+    @auto_login
     def get_users(self) -> list[User]:
         list_users = requests.get(f"{BaseRepository.calculate_base_url(current_app)}"
                                   f"{BaseRepository.BASE_ENDPOINT}{BaseRepository.USERS_URL}",
@@ -37,6 +37,7 @@ class UserRepository(BaseRepository):
         users = [User.from_json(user) for user in list_users]
         return users
 
+    @auto_login
     def get_user(self, id: int) -> User:
         return User.from_json(requests.get(f"{BaseRepository.calculate_base_url(current_app)}"
                                            f"{BaseRepository.BASE_ENDPOINT}{BaseRepository.USERS_URL}"

@@ -19,13 +19,26 @@ class UserForm(FlaskForm):
                 'email': form.email.data,
                 'permission': form.permission.data}
 
+
 class NewUserForm(FlaskForm):
 
-    username = StringField("Имя пользователя: ", validators=[DataRequired()])
-    email = StringField("Эл.почта: ", validators=[DataRequired()])
-    password = PasswordField("Password: ", validators=[DataRequired(), Length(1, 30), EqualTo('check_password')])
-    check_password = PasswordField("Password: ", validators=[DataRequired(), Length(1, 30)])
-    permission = SelectField("Разрешение: ", choices=[e.value for e in Permissions])
+    username = StringField("Имя пользователя: ",
+                           validators=[DataRequired()]
+                           )
+    email = StringField("Эл.почта: ",
+                        validators=[DataRequired()]
+                        )
+    password = PasswordField("Password: ", validators=[DataRequired(),
+                                                       Length(1, 30),
+                                                       EqualTo('check_password')]
+                             )
+    check_password = PasswordField("Password: ",
+                                   validators=[DataRequired(),
+                                               Length(1, 30)]
+                                   )
+    permission = SelectField("Разрешение: ",
+                             choices=[e.value for e in Permissions]
+                             )
     submit = SubmitField("Отправить")
 
     @staticmethod

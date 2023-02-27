@@ -16,11 +16,10 @@ class BaseRepository:
     @staticmethod
     def calculate_base_url(app):
 
-        BASE_URL = f"{app.config['PROTOCOL_REST_BACKEND']}{app.config['URL_REST_BACKEND']}:" \
-                   f"{app.config['PORT_REST_BACKEND']}"
+        BASE_URL = f"{app.config.get('PROTOCOL_REST_BACKEND')}{app.config.get('URL_REST_BACKEND')}:" \
+                   f"{app.config.get('PORT_REST_BACKEND')}"
         return BASE_URL
 
 
     def create_headers(self):
-
         return {'Authorization': current_app.config.get('TOKEN')}
