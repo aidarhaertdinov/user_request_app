@@ -1,15 +1,13 @@
 # user_request_app
 
 
-## Что делает проект
+## Назначение проекта
 
-Проект отправляет запросы на другое приложения (чтобы клонировать приложение user_response_app
-)
+Приложение имитирует работу frontend: отправляет запросы на user_response_app и отображает на экране полученные данные
 
 ```Bash 
 git clone https://github.com/aidarhaertdinov/user_response_app.git
 ```
-Реализована базовая и токеновая аутентификация.
 
 ## Как собрать и запустить проект
 
@@ -42,49 +40,23 @@ flask db init
 
 ## Используемые Конфигураций (Config)
 
-```Python
-PROTOCOL_REST_BACKEND = os.getenv('PROTOCOL_REST_BACKEND')
-```
-- протокол приложения
 
-```Python
-URL_REST_BACKEND = os.getenv('URL_REST_BACKEND')
-```
-- адрес приложения
+**PROTOCOL_REST_BACKEND = os.getenv('PROTOCOL_REST_BACKEND')** - протокол приложения
 
-```Python
-PORT_REST_BACKEND = os.getenv('PORT_REST_BACKEND')
-```
-- порт приложения
+**URL_REST_BACKEND = os.getenv('URL_REST_BACKEND')** - адрес приложения
 
-```Python
-SECRET_KEY = os.getenv('SECRET_KEY')
-```
-- используют значение секретного ключа в качестве криптографического ключа, полезного для генерации подписей или токенов. [ссылка на документацию](https://explore-flask.readthedocs.io/en/latest/configuration.html)
+**PORT_REST_BACKEND** - порт приложения
 
-```Python
-WTF_CSRF_SECRET_KEY = os.getenv('WTF_CSRF_SECRET_KEY')
-```
-- для защиты веб-форм от атаки под названием Cross-Site Request Forgery. [ссылка на документацию](https://flask-wtf.readthedocs.io/en/0.15.x/config/)
+**SECRET_KEY = os.getenv('SECRET_KEY')** - используют значение секретного ключа в качестве криптографического ключа, полезного для генерации подписей или токенов. [ссылка на документацию](https://explore-flask.readthedocs.io/en/latest/configuration.html)
 
-```Python
-SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS')
-```
-- если установлен  `True`, то Flask-SQLAlchemy будет отслеживать изменения объектов и посылать сигналы. [ссылка на документацию](https://flask-sqlalchemy-russian.readthedocs.io/ru/latest/config.html)
+**WTF_CSRF_SECRET_KEY = os.getenv('WTF_CSRF_SECRET_KEY')** - для защиты веб-форм от атаки под названием Cross-Site Request Forgery. [ссылка на документацию](https://flask-wtf.readthedocs.io/en/0.15.x/config/)
 
-```Python
-ADMIN_EMAIL = os.getenv('PROTOCOL_REST_BACKEND')
-```
-- установленная электронная почта для администратора
+**SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS')** - если установлен  `True`, то Flask-SQLAlchemy будет отслеживать изменения объектов и посылать сигналы. [ссылка на документацию](https://flask-sqlalchemy-russian.readthedocs.io/ru/latest/config.html)
 
-```Python
-ADMIN_PASSWORD = os.getenv('PROTOCOL_REST_BACKEND')
-```
-- установленный пароль для администратора
+**ADMIN_EMAIL = os.getenv('PROTOCOL_REST_BACKEND')** - установленная электронная почта для администратора
 
-```Python
-TOKEN = os.getenv('TOKEN')
-```
-- установленный токен по умолчанию 
+**ADMIN_PASSWORD = os.getenv('PROTOCOL_REST_BACKEND')** - установленный пароль для администратора
+
+**TOKEN = os.getenv('TOKEN')** - установленный токен по умолчанию 
 
 

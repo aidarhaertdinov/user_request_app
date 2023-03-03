@@ -21,5 +21,5 @@ class BaseRepository:
         return BASE_URL
 
 
-    def create_headers(self):
+    def get_authorization_headers(self) -> dict:
         return {'Authorization': current_app.config.get('TOKEN')}

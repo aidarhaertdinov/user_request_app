@@ -6,7 +6,6 @@ from flask_wtf.csrf import CSRFProtect
 from flask_moment import Moment
 
 
-
 login_manager = LoginManager()
 bootstrap = Bootstrap()
 csrf = CSRFProtect()

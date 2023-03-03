@@ -1,6 +1,6 @@
 from flask import current_app
 from json.decoder import JSONDecodeError
-# from requests.exceptions import JSONDecodeError
+
 
 def auto_login(func):
     def wrapper(*args, **kwargs):

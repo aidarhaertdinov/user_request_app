@@ -20,11 +20,13 @@ class UserRepository(BaseRepository):
         else:
             return False
 
+
+    @auto_login
     def create_user(self, user) -> User:
         return User.from_json(requests.post(f"{BaseRepository.calculate_base_url(current_app)}"
                                             f"{BaseRepository.BASE_ENDPOINT}/create_user",
                                             json=user,
-                                            headers=BaseRepository.create_headers(self))
+                                            headers=BaseRepository.get_authorization_headers(self))
                               .json()
                               )
 
@@ -32,7 +34,7 @@ class UserRepository(BaseRepository):
     def get_users(self) -> list[User]:
         list_users = requests.get(f"{BaseRepository.calculate_base_url(current_app)}"
                                   f"{BaseRepository.BASE_ENDPOINT}{BaseRepository.USERS_URL}",
-                                  headers=BaseRepository.create_headers(self)) \
+                                  headers=BaseRepository.get_authorization_headers(self)) \
             .json()
         users = [User.from_json(user) for user in list_users]
         return users
@@ -42,7 +44,7 @@ class UserRepository(BaseRepository):
         return User.from_json(requests.get(f"{BaseRepository.calculate_base_url(current_app)}"
                                            f"{BaseRepository.BASE_ENDPOINT}{BaseRepository.USERS_URL}"
                                            f"/{id}",
-                                           headers=BaseRepository.create_headers(self))
+                                           headers=BaseRepository.get_authorization_headers(self))
                               .json()
                               )
 
@@ -50,13 +52,13 @@ class UserRepository(BaseRepository):
         return User.from_json(requests.put(f"{BaseRepository.calculate_base_url(current_app)}"
                                            f"{BaseRepository.BASE_ENDPOINT}{BaseRepository.USERS_URL}/{id}",
                                            json=update_user,
-                                           headers=BaseRepository.create_headers(self))
+                                           headers=BaseRepository.get_authorization_headers(self))
                               .json()
                               )
 
     def delete_user(self, id: int) -> User:
         return User.from_json(requests.delete(f"{BaseRepository.calculate_base_url(current_app)}"
                                               f"{BaseRepository.BASE_ENDPOINT}{BaseRepository.USERS_URL}/{id}",
-                                              headers=BaseRepository.create_headers(self))
+                                              headers=BaseRepository.get_authorization_headers(self))
                               .json()
                               )
