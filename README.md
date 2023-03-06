@@ -40,23 +40,24 @@ flask db init
 
 ## Используемые Конфигураций (Config)
 
+### Все конфигурации окружения представлены в `.env` файле
 
-**PROTOCOL_REST_BACKEND = os.getenv('PROTOCOL_REST_BACKEND')** - протокол приложения
+`PROTOCOL_REST_BACKEND = os.getenv('PROTOCOL_REST_BACKEND')` - протокол приложения
 
-**URL_REST_BACKEND = os.getenv('URL_REST_BACKEND')** - адрес приложения
+`URL_REST_BACKEND = os.getenv('URL_REST_BACKEND')` - адрес приложения
 
-**PORT_REST_BACKEND** - порт приложения
+`PORT_REST_BACKEND` - порт приложения
 
-**SECRET_KEY = os.getenv('SECRET_KEY')** - используют значение секретного ключа в качестве криптографического ключа, полезного для генерации подписей или токенов. [ссылка на документацию](https://explore-flask.readthedocs.io/en/latest/configuration.html)
+`SECRET_KEY = os.getenv('SECRET_KEY')` - используют значение секретного ключа в качестве криптографического ключа, полезного для генерации подписей или токенов. [ссылка на документацию](https://explore-flask.readthedocs.io/en/latest/configuration.html)
 
-**WTF_CSRF_SECRET_KEY = os.getenv('WTF_CSRF_SECRET_KEY')** - для защиты веб-форм от атаки под названием Cross-Site Request Forgery. [ссылка на документацию](https://flask-wtf.readthedocs.io/en/0.15.x/config/)
+`WTF_CSRF_SECRET_KEY = os.getenv('WTF_CSRF_SECRET_KEY')` - для защиты веб-форм от атаки под названием Cross-Site Request Forgery. [ссылка на документацию](https://flask-wtf.readthedocs.io/en/0.15.x/config/)
 
-**SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS')** - если установлен  `True`, то Flask-SQLAlchemy будет отслеживать изменения объектов и посылать сигналы. [ссылка на документацию](https://flask-sqlalchemy-russian.readthedocs.io/ru/latest/config.html)
+`SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS')` - если установлен  `True`, то Flask-SQLAlchemy будет отслеживать изменения объектов и посылать сигналы. [ссылка на документацию](https://flask-sqlalchemy-russian.readthedocs.io/ru/latest/config.html)
 
-**ADMIN_EMAIL = os.getenv('PROTOCOL_REST_BACKEND')** - установленная электронная почта для администратора
+`ADMIN_EMAIL = os.getenv('PROTOCOL_REST_BACKEND')` - установленная электронная почта для администратора
 
-**ADMIN_PASSWORD = os.getenv('PROTOCOL_REST_BACKEND')** - установленный пароль для администратора
+`ADMIN_PASSWORD = os.getenv('PROTOCOL_REST_BACKEND')` - установленный пароль для администратора
 
-**TOKEN = os.getenv('TOKEN')** - установленный токен по умолчанию 
+`TOKEN = os.getenv('TOKEN')` - установленный токен по умолчанию 
 
 
