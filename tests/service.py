@@ -1,13 +1,11 @@
+import requests
 
 
-def user_login(self, user) -> bool:
-    if user:
-        data = requests.post(f"{BaseRepository.calculate_base_url(current_app)}"
-                             f"{BaseRepository.BASE_ENDPOINT_AUTH}/login",
-                             json=user) \
-            .json()
+def user_login() -> str:
+    user = {'email': 'admin@mail.ru',
+            'password': 'admin123'
+            }
+    data = requests.post('http://127.0.0.1:5000/auth/login', json=user).json()
+    token = f"Bearer {data['token']}"
 
-        current_app.config['TOKEN'] = f"Bearer {data['token']}"
-        return True
-    else:
-        return False
+    return token
