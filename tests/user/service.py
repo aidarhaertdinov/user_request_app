@@ -2,7 +2,6 @@ import requests
 
 
 def pytest_user():
-
     return {'email': 'pytest_user@mail.ru',
             'password': 'pytest123',
             'permission': 'USER',
@@ -18,3 +17,20 @@ def user_login() -> str:
     token = f"Bearer {data['token']}"
 
     return token
+
+
+def request_post(user):
+    return requests.post('http://127.0.0.1:5000/rest/v1/create_user',
+                         json=user,
+                         headers={'Authorization': user_login()})
+
+
+def request_put(update_user, id):
+    return requests.put(f"http://127.0.0.1:5000/rest/v1/users/{id}",
+                        json=update_user,
+                        headers={'Authorization': user_login()})
+
+
+def request_delete(id):
+    return requests.delete(f"http://127.0.0.1:5000/rest/v1/users/{id}",
+                           headers={'Authorization': user_login()})

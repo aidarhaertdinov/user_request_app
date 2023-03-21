@@ -1,41 +1,24 @@
 import pytest
-import requests
-from tests.user.service import user_login
-
-
-# @pytest.fixture()
-# def create_user():
-#     user = {'email': 'pytest_user@mail.ru',
-#             'password': 'pytest123',
-#             'permission': 'USER',
-#             'username': 'Pytest_user'
-#             }
-#     response_create_user = requests.post('http://127.0.0.1:5000/rest/v1/create_user',
-#                                          json=user,
-#                                          headers={'Authorization': user_login()})
-#     return response_create_user
+from tests.user.service import request_post, request_delete
 
 
 @pytest.fixture()
-def create_user_for_update():
+def create_and_delete_user():
     user = {'email': 'pytest_user@mail.ru',
             'password': 'pytest123',
             'permission': 'USER',
-            'username': 'Py'
+            'username': 'Pytest_user'
             }
-    response_create_user = requests.post('http://127.0.0.1:5000/rest/v1/create_user',
-                                         json=user,
-                                         headers={'Authorization': user_login()})
+    response_create_user = request_post(user)
 
     yield response_create_user
 
-    requests.delete(f"http://127.0.0.1:5000/rest/v1/users/{response_create_user.json().get('id')}",
-                    headers={'Authorization': user_login()})
+    request_delete(response_create_user.json().get('id'))
 
 
 def response_delete_user(id):
-    response_delete = requests.delete(f"http://127.0.0.1:5000/rest/v1/users/{id}",
-                                      headers={'Authorization': user_login()})
+    response_delete = request_delete(id)
+
     return response_delete
 
 
