@@ -1,3 +1,4 @@
+
 from .. import login_manager
 from app.main import main
 from flask import render_template, request, redirect, url_for, current_app
@@ -18,6 +19,7 @@ def index():
             'password': current_app.config.get('ADMIN_PASSWORD')
             }
     user_repository.user_login(user)
+
 
     return render_template("main/base.html")
 

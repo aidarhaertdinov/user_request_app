@@ -1,4 +1,5 @@
-from tests.user.service import request_put
+import requests
+from tests.pytest.user.service import request_put, user_login
 import pytest
 
 
@@ -25,6 +26,13 @@ import pytest
 def test_update_user(data, result, create_and_delete_user):
     response_update = request_put(data, create_and_delete_user.json().get('id'))
 
+    response_get = requests.get(f"http://127.0.0.1:5000/rest/v1/users/{create_and_delete_user.json().get('id')}",
+                                headers={'Authorization': user_login()}).json()
+
+    assert response_get.get('id') == response_update.json().get('id')
+    assert response_get.get('email') == response_update.json().get('email')
+    assert response_get.get('permission') == response_update.json().get('permission')
+    assert response_get.get('username') == response_update.json().get('username')
     assert result == response_update.status_code
 
 
