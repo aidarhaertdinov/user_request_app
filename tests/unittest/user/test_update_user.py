@@ -10,7 +10,8 @@ from tests.pytest.user.service import user_login
 class UpdateUserTestCase(TestCase):
 
     def setUp(self):
-        self.user_repository = UserRepository(app)
+        self.app = create_app(config_name='testing')
+        self.user_repository = app.user_repository
 
         user = {'email': 'unittest_user@mail.ru',
                 'password': 'unittest123',

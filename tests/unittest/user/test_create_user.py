@@ -10,8 +10,8 @@ from tests.pytest.user.service import user_login
 class CreateUserTestCase(TestCase):
 
     def setUp(self):
-        # self.app = create_app(config_name="development")
-        self.user_repository = UserRepository(app)
+        self.app = create_app(config_name='testing')
+        self.user_repository = app.user_repository
 
     def tearDown(self):
         requests.delete(f"http://127.0.0.1:5000/rest/v1/users/{self.response_create_user.id}",

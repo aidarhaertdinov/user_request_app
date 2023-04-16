@@ -1,8 +1,8 @@
-
 from .. import login_manager
 from app.main import main
 from flask import render_template, request, redirect, url_for, current_app
 from app.main.form import UserForm, NewUserForm
+
 
 
 @login_manager.user_loader
@@ -13,12 +13,11 @@ def load_user(id: int):
 
 @main.route('/')
 def index():
-    from app import user_repository
-
+    from main import app
     user = {'email': current_app.config.get('ADMIN_EMAIL'),
             'password': current_app.config.get('ADMIN_PASSWORD')
             }
-    user_repository.user_login(user)
+    app.user_repository.user_login(user)
 
 
     return render_template("main/base.html")
@@ -26,12 +25,12 @@ def index():
 
 @main.route("/create_user", methods=['GET', 'POST'])
 def create_user():
-    from app import user_repository
+    from main import app
 
     form = NewUserForm()
     if form.validate_on_submit():
         user = NewUserForm.form_data(form)
-        user_repository.create_user(user)
+        app.user_repository.create_user(user)
         return redirect(url_for("main.user_browser"))
     elif request.method == 'POST':
         flash("Неверная пара логин/пароль", category='error')
@@ -42,23 +41,23 @@ def create_user():
 
 @main.route('/user_browser', methods=['GET'])
 def user_browser():
-    from app import user_repository
+    from main import app
 
-    users = user_repository.get_users()
+    users = app.user_repository.get_users()
 
     return render_template("main/user_browser.html", users=users, title="Пользователи")
 
 
 @main.route('/user_editor/<id>', methods=['GET', 'POST', 'PUT'])
 def user_editor(id):
-    from app import user_repository
+    from main import app
 
-    user = user_repository.get_user(id)
+    user = app.user_repository.get_user(id)
     if user:
         form = UserForm(formdata=request.form, obj=user)
         if form.validate_on_submit():
             update_user = UserForm.form_data(form)
-            user_repository.put_user(id, update_user)
+            app.user_repository.put_user(id, update_user)
 
             return redirect(url_for("main.user_browser"))
 
@@ -67,10 +66,10 @@ def user_editor(id):
 
 @main.route('/delete_user/<id>', methods=['GET', 'DELETE'])
 def user_delete(id):
-    from app import user_repository
+    from main import app
 
-    user = user_repository.get_user(id)
+    user = app.user_repository.get_user(id)
     if user:
-        user_repository.delete_user(id)
+        app.user_repository.delete_user(id)
 
         return redirect(url_for("main.user_browser"))

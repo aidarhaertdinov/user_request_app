@@ -26,9 +26,7 @@ def create_app(config_name="development"):
     app.register_blueprint(main)
 
     from app.repository.user_repository import UserRepository
-    global user_repository
-    user_repository = UserRepository(app)
-    # app.user_repository = UserRepository(app)
+    app.user_repository = UserRepository(app)
 
 
 
